@@ -1,0 +1,114 @@
+# Kodi Media Center language file
+# Addon Name: NetWork Manager
+# Addon id: service.berserk.network
+# Addon Provider: berserktv
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#32001"
+msgid "Network"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Use Protocol DHCP"
+msgstr ""
+
+msgctxt "#32003"
+msgid "Network Interface"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Apply"
+msgstr ""
+
+msgctxt "#32005"
+msgid "Connect"
+msgstr ""
+
+msgctxt "#32006"
+msgid "Change Settings"
+msgstr ""
+
+msgctxt "#32007"
+msgid "No Settings Changed"
+msgstr ""
+
+msgctxt "#32008"
+msgid "Not Allowed"
+msgstr ""
+
+
+
+msgctxt "#32011"
+msgid "Ethernet"
+msgstr ""
+
+msgctxt "#32012"
+msgid "IP Address"
+msgstr ""
+
+msgctxt "#32013"
+msgid "Netmask"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Gateway"
+msgstr ""
+
+msgctxt "#32015"
+msgid "DNS 1"
+msgstr ""
+
+msgctxt "#32016"
+msgid "DNS 2"
+msgstr ""
+
+
+
+
+msgctxt "#32021"
+msgid "WLAN"
+msgstr ""
+
+msgctxt "#32022"
+msgid "SSID"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Security"
+msgstr ""
+
+msgctxt "#32024"
+msgid "Password"
+msgstr ""
+
+msgctxt "#32025"
+msgid "None"
+msgstr ""
+
+msgctxt "#32026"
+msgid "WEP-PSK"
+msgstr ""
+
+msgctxt "#32027"
+msgid "WPA2-PSK"
+msgstr ""
+
+
+
+
+msgctxt "#32100"
+msgid "An error has occurred in Addon"
+msgstr ""
+
