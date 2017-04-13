@@ -7,16 +7,14 @@
         <setting label="32023" id="security" subsetting="true" type="select" visible="!eq(-1,None)+eq(-3,WLAN)" lvalues=""></setting>
         <setting label="32024" id="pass" subsetting="true" type="action" visible="!eq(-2,None)+eq(-4,WLAN)" action="RunScript(script.berserk.network,inputpass)" option="close"></setting>
         <setting type="sep" visible="eq(-5,WLAN)"></setting>
-        <setting label="32002" id="dhcp" type="bool" default="true"></setting>
+        <setting label="32002" id="dhcp" type="bool" visible="!eq(-6,WLAN)" default="true"></setting>
         <setting type="sep"></setting>
+        <setting label="32005" id="connect" type="action" visible="!eq(-6,None)|eq(-8,Ethernet)" action="RunScript(script.berserk.network,connect)" option="close"></setting>
         <setting type="sep"></setting>
-        <setting label="32005" id="connect" type="action" visible="!eq(-7,None)|eq(-9,Ethernet)" action="RunScript(script.berserk.network,connect)"></setting>
-        <setting type="sep"></setting>
-        <setting type="sep"></setting>
-        <setting label="32012" id="ip" subsetting="true" type="ipaddress" visible="eq(-6,false)"></setting>
-        <setting label="32013" id="netmask" subsetting="true" type="ipaddress" visible="eq(-7,false)"></setting>
-        <setting label="32014" id="gateway" subsetting="true" type="ipaddress" visible="eq(-8,false)"></setting>
-        <setting label="32015" id="dns1" subsetting="true" type="ipaddress" visible="eq(-9,false)"></setting>
-        <setting label="32016" id="dns2" subsetting="true" type="ipaddress" visible="eq(-10,false)"></setting>
+        <setting label="32012" id="ip" subsetting="true" type="ipaddress" visible="eq(-4,false)+eq(-10,Ethernet)"></setting>
+        <setting label="32013" id="netmask" subsetting="true" type="ipaddress" visible="eq(-5,false)+eq(-11,Ethernet)"></setting>
+        <setting label="32014" id="gateway" subsetting="true" type="ipaddress" visible="eq(-6,false)+eq(-12,Ethernet)"></setting>
+        <setting label="32015" id="dns1" subsetting="true" type="ipaddress" visible="eq(-7,false)+eq(-13,Ethernet)"></setting>
+        <setting label="32016" id="dns2" subsetting="true" type="ipaddress" visible="eq(-8,false)+eq(-14,Ethernet)"></setting>
     </category>
 </settings>

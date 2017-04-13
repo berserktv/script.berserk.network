@@ -154,6 +154,7 @@ def dialogConnectSSID(iface):
         dialogPassError()
         return False
 
+    xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Connection ...")
     cmdDisconnect = ["/etc/network/wlan", iface, "down"]
     cmdConnect = ["/etc/network/wlan", iface, "up"]
     runCommand(cmdDisconnect)
@@ -164,6 +165,7 @@ def dialogConnectSSID(iface):
     else:
         # не смогли подключиться, возможно неправильно задан пароль ...
         xbmcgui.Dialog().ok( "Dialog Connect" , "Could not connect. Probably not correctly set the password ...")
+        __addon__.openSettings()
         return False
 
 
