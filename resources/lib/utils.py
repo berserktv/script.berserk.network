@@ -13,7 +13,14 @@ import subprocess
 __id__ = 'script.berserk.network'
 __addon__ = xbmcaddon.Addon(id=__id__)
 tools_script = "/etc/network/tools-wifi.sh"
+kodi_eths_dir = "/home/root/.kodi/userdata/eths/"
 kodi_wlans_dir = "/home/root/.kodi/userdata/wlans/"
+
+
+
+#he = utils.getNetworkInterfaces()
+#utils.ifconfigUp(iface)
+
 
 # общие методы плагина 'script.berserk.network'
 def log(message):
@@ -21,6 +28,18 @@ def log(message):
 
 def debug(message):
     xbmc.log ('{}: {}'.format (__id__, message), xbmc.LOGDEBUG)
+
+def wlanON():
+    os.remove(kodi_wlans_dir+"off")
+
+def wlanOFF():
+    open(kodi_wlans_dir+"off", 'a').close()
+
+def ethernetON():
+    os.remove(kodi_eths_dir+"off")
+
+def ethernetOFF():
+    open(kodi_eths_dir+"off", 'a').close()
 
 
 def ifconfigUp(iface):
@@ -44,10 +63,10 @@ def runCommand(command):
     rc = process.returncode
 
     if (rc == 0):
-        return (rc,output)
+        return (rc,output,error)
     else:
         debug("ERROR COMMAND => {}, error={}, output={}".format(command,error,output))
-        return (rc,"")
+        return (rc,"",error)
 
 def getWlanInterfaces():
     wifaces=[]
@@ -64,12 +83,35 @@ def getWlanInterfaces():
     return wifaces
 
 
+def getEthInterfaces():
+    efaces=[]
+    cmd = ["iwconfig"]
+    rc,output,error = runCommand(cmd)
+    if (rc != 0):
+        dialogNotFindEth()
+        return efaces
+
+    # смотрим только интерфейсы не WiFi
+    strings = error.splitlines()
+    # сетевых плат также может быть несколько
+    for s in strings:
+        if(s.find("no wireless extensions")!=-1):
+            name = s.split()[0]
+            if(name != "lo"): efaces.append(name)
+    return efaces
+
 def dialogNotFindWlan():
     xbmcgui.Dialog().ok( "Not find WLAN" , "Make sure the adapter Wi-Fi is plugged" )
     __addon__.openSettings()
 
+def dialogNotFindEth():
+    xbmcgui.Dialog().ok( "Not find Ethernet" , "Check ethernet network" )
+
 def dialogPassError():
     xbmcgui.Dialog().ok( "Error password" , "Password not set or length less than 8 symbols" )
+
+def dialogIpError():
+    xbmcgui.Dialog().ok( "Error ip" , "IP address is not set" )
 
 
 
@@ -85,11 +127,23 @@ def getNameWlan():
         if (l == 1): iface = wlans[0]
     return iface
 
+def getNameEth():
+    iface = ""
+    eths = getEthInterfaces()
+    l = len(eths)
+    if (l > 1):
+        ret = xbmcgui.Dialog().select("Select Ethernet interface", eths)
+        if (ret != -1): iface = eths[ret]
+        else: dialogNotFindEth()
+    else:
+        if (l == 1): iface = eths[0]
+    return iface
+
 
 def dialogSelectSSID(iface):
     if (iface==""): return False
     cmdScan = [tools_script, iface, "scan"]
-    # так как основное окно settings.xml будет закрыто (для корректного обновления полей окна settings)
+    # так как основное окно settings.xml будет закрыто (для корректного обновления полей)
     # вывожу сообщение о состоянии
     xbmc.executebuiltin('Notification("WLAN network", "%s", 7000)' % "Scanning ...")
     rc,output = runCommand(cmdScan)
@@ -154,19 +208,67 @@ def dialogConnectSSID(iface):
         dialogPassError()
         return False
 
+    wlanON()
     xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Connection ...")
-    cmdDisconnect = ["/etc/network/wlan", iface, "down"]
+    # cmdDisconnect = ["/etc/network/wlan", iface, "down"]
+    # runCommand(cmdDisconnect)
+    # скрипт wlan по команде up проверяет запущен ли wpa_supplicant, и если запущен вначале останавливает его (простой перезапуск)
     cmdConnect = ["/etc/network/wlan", iface, "up"]
-    runCommand(cmdDisconnect)
+    ethDisconn = ["/etc/network/eth-manual", "eth0", "down"] # FIXME: eth0
     rc,output = runCommand(cmdConnect)
     if (rc == 0):
-        xbmcgui.Dialog().ok( "Dialog Connect" , "connected")
+        ethernetOFF()
+        runCommand(ethDisconn)
+        xbmc.executebuiltin('Notification("WLAN network", "%s", 5000)' % "connected")
+        #xbmcgui.Dialog().ok( "Dialog Connect" , "connected")
         return True
     else:
         # не смогли подключиться, возможно неправильно задан пароль ...
-        xbmcgui.Dialog().ok( "Dialog Connect" , "Could not connect. Probably not correctly set the password ...")
+        xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect. Probably not correctly set the password ...")
         __addon__.openSettings()
         return False
 
 
+def saveConfigEthernet(iface, ip, mask, gateway, dns1, dns2):
+    cfg = open(kodi_eths_dir+iface, 'w')
+    cfg.write("ETH_IP=\"{}\"\n".format(ip))
+    cfg.write("ETH_NETMASK=\"{}\"\n".format(mask))
+    cfg.write("ETH_GATEWAY=\"{}\"\n".format(gateway))
+    cfg.write("ETH_DNS1=\"{}\"\n".format(dns1))
+    cfg.write("ETH_DNS2=\"{}\"\n".format(dns2))
+    cfg.close()
+
+
+def dialogConnectEthernet(iface):
+    if (iface==""): return False
+    ip = __addon__.getSetting("ip")
+    mask = __addon__.getSetting("netmask")
+    gateway = __addon__.getSetting("gateway")
+    dns1 = __addon__.getSetting("dns1")
+    dns2 = __addon__.getSetting("dns2")
+    dhcp = __addon__.getSetting("dhcp")
+
+    if (dhcp == "true"): ip = "dhcp"
+    elif (ip == "" ):
+        dialogIpError()
+        __addon__.openSettings()
+        return False
+
+    saveConfigEthernet(iface, ip, mask, gateway, dns1, dns2)
+
+    ethernetON()
+    cmdConnect = ["/etc/network/eth-manual", iface, "up"]
+    wlanDisconn = ["/etc/network/wlan", "wlan0", "down"] # FIXME: wlan0
+    rc,output = runCommand(cmdConnect)
+    if (rc == 0):
+        wlanOFF()
+        runCommand(wlanDisconn)
+        xbmc.executebuiltin('Notification("Ethernet network", "%s", 5000)' % "connected")
+        #xbmcgui.Dialog().ok( "Dialog Connect" , "connected")
+        return True
+    else:
+        # не смогли подключиться
+        xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect ...")
+        __addon__.openSettings()
+        return False
 
