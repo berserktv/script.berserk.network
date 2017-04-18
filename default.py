@@ -34,19 +34,24 @@ if __name__ == '__main__':
             __addon__.openSettings()
 
         if arg and arg.startswith('scan'):
-            iface = utils.getNameWlan()
+            wlans = utils.getWlanInterfaces()
+            iface = utils.getNameWlan(wlans)
             utils.dialogSelectSSID(iface)
 
         if arg and arg.startswith('inputpass'):
             utils.dialogInputPass()
 
         if arg and arg.startswith('connectwlan'):
-            iface = utils.getNameWlan()
-            utils.dialogConnectSSID(iface)
+            wlans = utils.getWlanInterfaces()
+            eths  = utils.getEthInterfaces()
+            iface = utils.getNameWlan(wlans)
+            utils.dialogConnectSSID(iface, eths)
 
         if arg and arg.startswith('connecteth'):
-            iface = utils.getNameEth()
-            utils.dialogConnectEthernet(iface)
+            eths  = utils.getEthInterfaces()
+            wlans = utils.getWlanInterfaces()
+            iface = utils.getNameEth(eths)
+            utils.dialogConnectEthernet(iface, wlans)
             #xbmcgui.Dialog().ok( "Dialog Connect" , "eths = {}".format(iface) )
 
     #except Exception, e:
