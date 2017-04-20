@@ -17,11 +17,6 @@ kodi_eths_dir = "/home/root/.kodi/userdata/eths/"
 kodi_wlans_dir = "/home/root/.kodi/userdata/wlans/"
 
 
-
-#he = utils.getNetworkInterfaces()
-#utils.ifconfigUp(iface)
-
-
 # общие методы плагина 'script.berserk.network'
 def log(message):
     xbmc.log ('{}: {}'.format(__id__, message), xbmc.LOGNOTICE)
@@ -38,25 +33,13 @@ def wlanOFF():
     open(kodi_wlans_dir+"off", 'a').close()
 
 def ethernetON():
-    f = kodi_wlans_dir+"off"
+    f = kodi_eths_dir+"off"
     if (os.path.isfile(f)):
         os.remove(f)
 
 def ethernetOFF():
     open(kodi_eths_dir+"off", 'a').close()
 
-
-def ifconfigUp(iface):
-    output = ""
-    if(iface!=None):
-        command = ["ifconfig", iface, "up"]
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        process.wait()
-        (stdoutdata, stderrdata) = process.communicate();
-        output =  stdoutdata
-        # ошибка с правами выполнения команды
-        if (stderrdata.find("SIOCSIFFLAGS:")>-1):
-            log("ERROR COMMAND => ifconfig {} up => {}".format(iface,stderrdata))
 
 def runCommand(command):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -65,7 +48,6 @@ def runCommand(command):
     output = stdoutdata
     error = stderrdata
     rc = process.returncode
-
     if (rc == 0):
         return (rc,output,error)
     else:
@@ -84,7 +66,7 @@ def getWlanInterfaces():
     strings = output.splitlines()
     for s in strings:
         if(s.find("IEEE 802.11")!=-1):
-                wifaces.append(s.split()[0])
+            wifaces.append(s.split()[0])
     return wifaces
 
 
@@ -229,17 +211,16 @@ def dialogConnectSSID(iface, eths):
         return False
 
     wlanON()
-    xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Connection ...")
-    # cmdDisconnect = ["/etc/network/wlan", iface, "down"]
-    # runCommand(cmdDisconnect)
-    # скрипт wlan по команде up проверяет запущен ли wpa_supplicant, и если запущен вначале останавливает его (простой перезапуск)
+    xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "waiting to connect ...")
+    cmdDisconnect = ["/etc/network/wlan", iface, "down"]
     cmdConnect = ["/etc/network/wlan", iface, "up"]
+    # полный вариант переинициализации с выключением dhclient (если запущен)
+    runCommand(cmdDisconnect)
     rc,output,error = runCommand(cmdConnect)
     if (rc == 0):
         ethernetOFF()
         disconnectEths(eths)
-        xbmc.executebuiltin('Notification("WLAN network", "%s", 5000)' % "connected")
-        #xbmcgui.Dialog().ok( "Dialog Connect" , "connected")
+        xbmc.executebuiltin('Notification("WLAN network", "%s", 5000)' % "Connected")
         return True
     else:
         # не смогли подключиться, возможно неправильно задан пароль ...

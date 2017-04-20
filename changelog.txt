@@ -1,0 +1,10 @@
+v0.2.1 - 20/04/2017
+- Added settings for Ethernet
+- Added settings for WLAN
+- Tested interaction with "Berserk" ver 0.2.1 (Torvin),
+- Tested interaction with scripts "Berserk" - wlan,eth-manual,dh-func.sh
+- Fixed reconnection error Ethernet => WLAN and conversely
+- Added Ethernet cable pluged analysis
+
+v0.2.0 - 07/02/2017
+- First version
