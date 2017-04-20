@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Very simple plugin for Kodi mediacenter
-# "Network Manager" is a network management software for Ethernet and Wifi network connections
+# Plugin for Kodi mediacenter
+# <<Network Manager>> is a network management software for Ethernet and Wifi network connections
 # Project "Berserk" - build Kodi for the Raspberry Pi platform, autor Alexander Demachev, site https://berserk.tv
 # license -  The MIT License (MIT)
 

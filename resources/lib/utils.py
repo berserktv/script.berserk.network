@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Very simple plugin for Kodi mediacenter
-# "Network Manager" is a network management software for Ethernet and Wifi network connections
+# Plugin for Kodi mediacenter
+# <<Network Manager>> is a network management software for Ethernet and Wifi network connections
 # Project "Berserk" - build Kodi for the Raspberry Pi platform, autor Alexander Demachev, site https://berserk.tv
 # license -  The MIT License (MIT)
 
@@ -40,7 +40,6 @@ def ethernetON():
 def ethernetOFF():
     open(kodi_eths_dir+"off", 'a').close()
 
-
 def runCommand(command):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process.wait()
@@ -53,6 +52,12 @@ def runCommand(command):
     else:
         debug("ERROR COMMAND => {}, error={}, output={}".format(command,error,output))
         return (rc,"",error)
+
+def checkPluged(iface):
+    cmdPluged = [tools_script, iface, "check_pluged"]
+    rc,output,error = runCommand(cmdPluged)
+    if (rc == 0): return True
+    return False
 
 def getWlanInterfaces():
     wifaces=[]
@@ -100,6 +105,21 @@ def dialogPassError():
 def dialogIpError():
     xbmcgui.Dialog().ok( "Error ip" , "IP address is not set" )
 
+def dialogIfaceNotReady(iface):
+    xbmcgui.Dialog().ok( "Dialog Error" , "Interface {} - not ready".format(iface) )
+
+
+def checkReadyInterface(iface):
+    cmdUp = ["ifconfig", iface, "up"]
+    rc,output,error = runCommand(cmdUp)
+    if (rc != 0):
+        dialogIfaceNotReady(iface)
+        return False
+    if not checkPluged(iface):
+        xbmcgui.Dialog().ok( "Dialog Error" , "Network cable is not pluged")
+        return False
+    return True
+
 
 
 def getNameWlan(wlans):
@@ -131,7 +151,7 @@ def dialogSelectSSID(iface):
     cmdUp = ["ifconfig", iface, "up"]
     rc,output,error = runCommand(cmdUp)
     if (rc != 0):
-        xbmcgui.Dialog().ok( "Error WLAN" , "interface not ready" )
+        dialogIfaceNotReady(iface)
         return False
 
     cmdScan = [tools_script, iface, "scan"]
@@ -224,7 +244,7 @@ def dialogConnectSSID(iface, eths):
         return True
     else:
         # не смогли подключиться, возможно неправильно задан пароль ...
-        xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect. Probably not correctly set the password ...")
+        xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect. Probably not correctly set the password")
         __addon__.openSettings()
         return False
 
@@ -255,6 +275,8 @@ def dialogConnectEthernet(iface, wlans):
         return False
 
     saveConfigEthernet(iface, ip, mask, gateway, dns1, dns2)
+    if not checkReadyInterface(iface):
+        return False
 
     ethernetON()
     # полный вариант переинициализации, с выключением dhclient (если запущен)

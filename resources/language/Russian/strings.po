@@ -107,6 +107,15 @@ msgstr "WPA2-PSK"
 
 
 
+msgctxt "#32031"
+msgid "SSH"
+msgstr ""
+
+msgctxt "#32032"
+msgid "switch ON"
+msgstr "включить"
+
+
 
 msgctxt "#32100"
 msgid "An error has occurred in Addon"
