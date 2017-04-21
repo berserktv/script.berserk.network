@@ -16,20 +16,20 @@ __addon__ = xbmcaddon.Addon(id=__id__)
 __path__ = __addon__.getAddonInfo('path')
 _ = __addon__.getLocalizedString
 
+
 sys.path.append(xbmc.translatePath(os.path.join(__path__, 'resources', 'lib')))
 import utils
 
 if __name__ == '__main__':
     #try:
         arg = None
-        ETHERNET = 0
-        WLAN  = 1
+        utils.checkFirstRun()
+
         if len(sys.argv) > 1:
             arg = sys.argv[1] or False
         extra = sys.argv[2:]
         if not arg:
             sys.exit(0)
-
 
         if arg.startswith('butnetwork'):
             __addon__.openSettings()
@@ -41,6 +41,9 @@ if __name__ == '__main__':
 
         if arg.startswith('inputpass'):
             utils.dialogInputPass()
+
+        if arg.startswith('sshapply'):
+            utils.applySshConfig()
 
         if arg.startswith('connectwlan'):
             wlans = utils.getWlanInterfaces()

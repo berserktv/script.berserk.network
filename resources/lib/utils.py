@@ -15,6 +15,8 @@ __addon__ = xbmcaddon.Addon(id=__id__)
 tools_script = "/etc/network/tools-wifi.sh"
 kodi_eths_dir = "/home/root/.kodi/userdata/eths/"
 kodi_wlans_dir = "/home/root/.kodi/userdata/wlans/"
+dropbear_config = "/etc/default/dropbear"
+first_run="/tmp/first.bs.run"
 
 
 # общие методы плагина 'script.berserk.network'
@@ -39,6 +41,12 @@ def ethernetON():
 
 def ethernetOFF():
     open(kodi_eths_dir+"off", 'a').close()
+
+def checkFirstRun():
+    if (os.path.isfile(first_run)):
+        xbmcgui.Dialog().ok( "Greetings" , "Welcome !!!" )
+        __addon__.openSettings()
+        os.remove(first_run)
 
 def runCommand(command):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -119,8 +127,6 @@ def checkReadyInterface(iface):
         xbmcgui.Dialog().ok( "Dialog Error" , "Network cable is not pluged")
         return False
     return True
-
-
 
 def getNameWlan(wlans):
     iface = ""
@@ -205,7 +211,7 @@ def dialogInputPass():
     str1 = xbmcgui.Dialog().input("Input Password (min length 8 simbols)")
     if( len(str1) >= 8 ):
         if (dialogGenSSID(str1)):
-            # реальный пароль не сохраняем, только хеш
+            # реальный пароль не сохраняю, только хеш (:-)прям безопасная я вся такая - "Вайфая")
             __addon__.setSetting("pass", "save")
     else: dialogPassError()
     __addon__.openSettings()
@@ -213,11 +219,16 @@ def dialogInputPass():
 
 def disconnectEths(eths):
     for i in eths:
+        if checkPluged(i):
+            xbmc.executebuiltin('Notification("Ethernet", "%s", 5000)' % "interface - {} OFF".format(i))
+        # выключаю в любом случае, мало ли кабель отвалился
         cmdDisconnect = ["/etc/network/eth-manual", i, "down"]
         runCommand(cmdDisconnect)
 
 def disconnectWlans(wlans):
     for i in wlans:
+        if checkPluged(i):
+            xbmc.executebuiltin('Notification("WLAN", "%s", 5000)' % "interface - {} OFF".format(i))
         cmdDisconnect = ["/etc/network/wlan", i, "down"]
         runCommand(cmdDisconnect)
 
@@ -231,15 +242,15 @@ def dialogConnectSSID(iface, eths):
         return False
 
     wlanON()
-    xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "waiting to connect ...")
+    disconnectEths(eths)
     cmdDisconnect = ["/etc/network/wlan", iface, "down"]
     cmdConnect = ["/etc/network/wlan", iface, "up"]
     # полный вариант переинициализации с выключением dhclient (если запущен)
     runCommand(cmdDisconnect)
+    xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "waiting to connect ...")
     rc,output,error = runCommand(cmdConnect)
     if (rc == 0):
         ethernetOFF()
-        disconnectEths(eths)
         xbmc.executebuiltin('Notification("WLAN network", "%s", 5000)' % "Connected")
         return True
     else:
@@ -276,9 +287,11 @@ def dialogConnectEthernet(iface, wlans):
 
     saveConfigEthernet(iface, ip, mask, gateway, dns1, dns2)
     if not checkReadyInterface(iface):
+        __addon__.openSettings()
         return False
 
     ethernetON()
+    disconnectWlans(wlans)
     # полный вариант переинициализации, с выключением dhclient (если запущен)
     cmdDisconnect = ["/etc/network/eth-manual", iface, "down"]
     cmdConnect = ["/etc/network/eth-manual", iface, "up"]
@@ -287,7 +300,6 @@ def dialogConnectEthernet(iface, wlans):
     rc,output,error = runCommand(cmdConnect)
     if (rc == 0):
         wlanOFF()
-        disconnectWlans(wlans)
         xbmc.executebuiltin('Notification("Ethernet network", "%s", 5000)' % "Connected")
         return True
     else:
@@ -295,4 +307,57 @@ def dialogConnectEthernet(iface, wlans):
         xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect ...")
         __addon__.openSettings()
         return False
+
+
+def applySshConfig():
+    res = False
+    mess = ""
+    cmdSsh = []
+    sshon = __addon__.getSetting("sshon")
+    start = (sshon == "true")
+    is_ssh = os.path.isfile("/etc/init.d/ssh")
+    is_dropbear = os.path.isfile("/etc/init.d/dropbear")
+
+    if (is_dropbear): cmdSsh.append("/etc/init.d/dropbear")
+    elif (is_ssh): cmdSsh.append("/etc/init.d/ssh")
+
+    if (start):
+        cmdSsh.append("start")
+        mess = "start"
+    else:
+        cmdSsh.append("stop")
+        mess = "stop"
+
+    xbmc.executebuiltin('Notification("Ssh service", "%s", 5000)' % mess)
+    rc,output,error = runCommand(cmdSsh)
+    if (rc == 0): res = True
+    else: xbmc.executebuiltin('Notification("Ssh service", "%s", 5000)' % "Failed")
+
+    if (is_dropbear): configDropbear(start)
+    return res
+
+
+def configDropbear(start):
+    if (os.path.isfile(dropbear_config)):
+        cfg = open(dropbear_config,'r')
+        filedata = cfg.read()
+        newdata = filedata
+        cfg.close()
+        if (filedata.find("NO_START=") != -1):
+            if (start): newdata = filedata.replace("NO_START=1","NO_START=0")
+            else: newdata = filedata.replace("NO_START=0","NO_START=1")
+        else:
+            if (start): newdata.append("NO_START=0\n")
+            else: newdata.append("NO_START=1\n")
+
+        cfg = open(dropbear_config,'w')
+        cfg.write(newdata)
+        cfg.close()
+    else:
+        cfg = open(dropbear_config,'w')
+        cfg.write("DROPBEAR_EXTRA_ARGS=\"-B\"\n")
+        if (start): cfg.write("NO_START=0\n")
+        else: cfg.write("NO_START=1\n")
+        cfg.close()
+
 

@@ -1,3 +1,6 @@
+v0.2.2 - 01/05/2017
+- Added start / stop ssh service (dropbear)
+
 v0.2.1 - 20/04/2017
 - Added settings for Ethernet
 - Added settings for WLAN
