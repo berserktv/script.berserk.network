@@ -347,8 +347,8 @@ def configDropbear(start):
             if (start): newdata = filedata.replace("NO_START=1","NO_START=0")
             else: newdata = filedata.replace("NO_START=0","NO_START=1")
         else:
-            if (start): newdata.append("NO_START=0\n")
-            else: newdata.append("NO_START=1\n")
+            if (start): newdata += "NO_START=0\n"
+            else: newdata += "NO_START=1\n"
 
         cfg = open(dropbear_config,'w')
         cfg.write(newdata)
