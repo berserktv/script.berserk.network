@@ -217,6 +217,25 @@ def dialogInputPass():
     __addon__.openSettings()
 
 
+def dialogUnsetPass():
+    ssid = __addon__.getSetting("ssid")
+    str1 = __addon__.getSetting("pass")
+    if( ssid == "" or str1 == "" ):
+        xbmcgui.Dialog().ok("Dialog Error", "SSID or PASSWORD empty")
+        return False
+
+    #вы уверены что хотите очистить сохраненный пароль.
+    answer = xbmcgui.Dialog().yesno("Dialog Unset Password", "You are sure that you want to clear the saved password for \n\n              WLAN - {}".format(ssid))
+    if (answer == 1):
+        f = kodi_wlans_dir+ssid
+        if (os.path.isfile(f)):
+            os.remove(f)
+            __addon__.setSetting("pass", "")
+
+    __addon__.openSettings()
+    return True
+
+
 def disconnectEths(eths):
     for i in eths:
         if checkPluged(i):

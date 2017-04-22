@@ -16,7 +16,6 @@ __addon__ = xbmcaddon.Addon(id=__id__)
 __path__ = __addon__.getAddonInfo('path')
 _ = __addon__.getLocalizedString
 
-
 sys.path.append(xbmc.translatePath(os.path.join(__path__, 'resources', 'lib')))
 import utils
 
@@ -34,24 +33,27 @@ if __name__ == '__main__':
         if arg.startswith('butnetwork'):
             __addon__.openSettings()
 
-        if arg.startswith('scan'):
+        elif arg.startswith('scan'):
             wlans = utils.getWlanInterfaces()
             iface = utils.getNameWlan(wlans)
             utils.dialogSelectSSID(iface)
 
-        if arg.startswith('inputpass'):
+        elif arg.startswith('inputpass'):
             utils.dialogInputPass()
 
-        if arg.startswith('sshapply'):
+        elif arg.startswith('unsetpass'):
+            utils.dialogUnsetPass()
+
+        elif arg.startswith('sshapply'):
             utils.applySshConfig()
 
-        if arg.startswith('connectwlan'):
+        elif arg.startswith('connectwlan'):
             wlans = utils.getWlanInterfaces()
             eths  = utils.getEthInterfaces()
             iface = utils.getNameWlan(wlans)
             utils.dialogConnectSSID(iface, eths)
 
-        if arg.startswith('connecteth'):
+        elif arg.startswith('connecteth'):
             eths  = utils.getEthInterfaces()
             wlans = utils.getWlanInterfaces()
             iface = utils.getNameEth(eths)

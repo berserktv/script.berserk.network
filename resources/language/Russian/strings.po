@@ -1,6 +1,6 @@
 # Kodi Media Center language file
 # Addon Name: NetWork Manager
-# Addon id: service.berserk.network
+# Addon id: script.berserk.network
 # Addon Provider: berserktv
 msgid ""
 msgstr ""
@@ -104,6 +104,10 @@ msgstr "WEP-PSK"
 msgctxt "#32027"
 msgid "WPA2-PSK"
 msgstr "WPA2-PSK"
+
+msgctxt "#32028"
+msgid "forget"
+msgstr "забыть"
 
 
 

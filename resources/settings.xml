@@ -6,22 +6,23 @@
         <setting label="32022" id="ssid" subsetting="true" type="action" visible="eq(-2,WLAN)" action="RunScript(script.berserk.network,scan)" default="None" option="close"></setting>
         <setting label="32023" id="security" subsetting="true" type="select" visible="!eq(-1,None)+eq(-3,WLAN)" lvalues=""></setting>
         <setting label="32024" id="pass" subsetting="true" type="action" visible="!eq(-2,None)+eq(-4,WLAN)" action="RunScript(script.berserk.network,inputpass)" option="close"></setting>
-        <setting type="sep" visible="eq(-5,WLAN)"></setting>
-        <setting label="32002" id="dhcp" type="bool" visible="eq(-6,Ethernet)" default="true"></setting>
-        <setting type="sep" visible="!eq(-5,None)+eq(-7,WLAN)"></setting>
-        <setting label="32005" id="connect" type="action" visible="!eq(-6,None)+eq(-8,WLAN)" action="RunScript(script.berserk.network,connectwlan)" option="close"></setting>
-        <setting type="sep" visible="!eq(-7,None)+eq(-9,WLAN)"></setting>
-        <setting label="32012" id="ip" subsetting="true" type="ipaddress" visible="eq(-4,false)+eq(-10,Ethernet)"></setting>
-        <setting label="32013" id="netmask" subsetting="true" type="ipaddress" visible="eq(-5,false)+eq(-11,Ethernet)"></setting>
-        <setting label="32014" id="gateway" subsetting="true" type="ipaddress" visible="eq(-6,false)+eq(-12,Ethernet)"></setting>
-        <setting label="32015" id="dns1" subsetting="true" type="ipaddress" visible="eq(-7,false)+eq(-13,Ethernet)"></setting>
-        <setting label="32016" id="dns2" subsetting="true" type="ipaddress" visible="eq(-8,false)+eq(-14,Ethernet)"></setting>
-        <setting type="sep" visible="eq(-15,Ethernet)"></setting>
-        <setting label="32005" id="connect" type="action" visible="eq(-16,Ethernet)" action="RunScript(script.berserk.network,connecteth)" option="close"></setting>
-        <setting type="sep" visible="eq(-17,Ethernet)"></setting>
-        <setting type="sep" visible="eq(-18,SSH)"></setting>
-        <setting label="32032" id="sshon" subsetting="true" type="bool" visible="eq(-19,SSH)" default="false"></setting>
-        <setting label="32004" id="sshapply" type="action" visible="eq(-20,SSH)" action="RunScript(script.berserk.network,sshapply)" option="close"></setting>
-        <setting type="sep" visible="eq(-21,SSH)"></setting>
+        <setting label="32028" id="unsetpass" subsetting="true" type="action" visible="!eq(-3,None)+eq(-1,save)+eq(-5,WLAN)" action="RunScript(script.berserk.network,unsetpass)" option="close"></setting>
+        <setting type="sep" visible="eq(-6,WLAN)"></setting>
+        <setting label="32002" id="dhcp" type="bool" visible="eq(-7,Ethernet)" default="true"></setting>
+        <setting type="sep" visible="!eq(-6,None)+eq(-8,WLAN)"></setting>
+        <setting label="32005" id="connect" type="action" visible="!eq(-7,None)+eq(-9,WLAN)" action="RunScript(script.berserk.network,connectwlan)" option="close"></setting>
+        <setting type="sep" visible="!eq(-8,None)+eq(-10,WLAN)"></setting>
+        <setting label="32012" id="ip" subsetting="true" type="ipaddress" visible="eq(-5,false)+eq(-11,Ethernet)"></setting>
+        <setting label="32013" id="netmask" subsetting="true" type="ipaddress" visible="eq(-6,false)+eq(-12,Ethernet)"></setting>
+        <setting label="32014" id="gateway" subsetting="true" type="ipaddress" visible="eq(-7,false)+eq(-13,Ethernet)"></setting>
+        <setting label="32015" id="dns1" subsetting="true" type="ipaddress" visible="eq(-8,false)+eq(-14,Ethernet)"></setting>
+        <setting label="32016" id="dns2" subsetting="true" type="ipaddress" visible="eq(-9,false)+eq(-15,Ethernet)"></setting>
+        <setting type="sep" visible="eq(-16,Ethernet)"></setting>
+        <setting label="32005" id="connect" type="action" visible="eq(-17,Ethernet)" action="RunScript(script.berserk.network,connecteth)" option="close"></setting>
+        <setting type="sep" visible="eq(-18,Ethernet)"></setting>
+        <setting type="sep" visible="eq(-19,SSH)"></setting>
+        <setting label="32032" id="sshon" subsetting="true" type="bool" visible="eq(-20,SSH)" default="false"></setting>
+        <setting label="32004" id="sshapply" type="action" visible="eq(-21,SSH)" action="RunScript(script.berserk.network,sshapply)" option="close"></setting>
+        <setting type="sep" visible="eq(-22,SSH)"></setting>
     </category>
 </settings>
