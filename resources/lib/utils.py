@@ -17,6 +17,7 @@ kodi_eths_dir = "/home/root/.kodi/userdata/eths/"
 kodi_wlans_dir = "/home/root/.kodi/userdata/wlans/"
 dropbear_config = "/etc/default/dropbear"
 first_run="/tmp/first.bs.run"
+_ = __addon__.getLocalizedString
 
 
 # общие методы плагина 'script.berserk.network'
@@ -101,11 +102,12 @@ def getEthInterfaces():
     return efaces
 
 def dialogNotFindWlan():
-    xbmcgui.Dialog().ok( "Not find WLAN" , "Make sure the adapter Wi-Fi is plugged" ) #32041
+    #xbmcgui.Dialog().ok( _()"Not find WLAN" , "Make sure the adapter Wi-Fi is plugged" ) #32068 32041
+    xbmcgui.Dialog().ok( _(32068), (_32041) ) #32068 32041
     __addon__.openSettings()
 
 def dialogNotFindEth():
-    xbmcgui.Dialog().ok( "Not find Ethernet" , "Check ethernet network" ) #32042
+    xbmcgui.Dialog().ok( "Not find Ethernet" , "Check ethernet network" ) #32069 32042
 
 def dialogPassError():
     xbmcgui.Dialog().ok( "Error password" , "Password not set or length less than 8 symbols" ) #32043

@@ -225,6 +225,14 @@ msgctxt "#32067"
 msgid "Failed"
 msgstr ""
 
+msgctxt "#32068"
+msgid "Not find WLAN"
+msgstr ""
+
+msgctxt "#32069"
+msgid "Not find Ethernet"
+msgstr ""
+
 
 
 msgctxt "#32100"

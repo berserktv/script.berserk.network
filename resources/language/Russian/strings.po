@@ -111,7 +111,7 @@ msgstr "включить"
 
 msgctxt "#32041"
 msgid "Make sure the adapter Wi-Fi is plugged"
-msgstr ""
+msgstr "Убедитель что Wi-Fi адаптер подключен"
 
 msgctxt "#32042"
 msgid "Check ethernet network"
@@ -212,6 +212,14 @@ msgstr ""
 msgctxt "#32067"
 msgid "Failed"
 msgstr ""
+
+msgctxt "#32068"
+msgid "Not find WLAN"
+msgstr "Не найдена сеть WLAN"
+
+msgctxt "#32069"
+msgid "Not find Ethernet"
+msgstr "Не найдена сеть Ethernet"
 
 
 

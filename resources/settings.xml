@@ -12,11 +12,11 @@
         <setting type="sep" visible="!eq(-6,None)+eq(-8,WLAN)"></setting>
         <setting label="32005" id="connect" type="action" visible="!eq(-7,None)+eq(-9,WLAN)" action="RunScript(script.berserk.network,connectwlan)" option="close"></setting>
         <setting type="sep" visible="!eq(-8,None)+eq(-10,WLAN)"></setting>
-        <setting label="32012" id="ip" subsetting="true" type="ipaddress" visible="eq(-5,false)+eq(-11,Ethernet)"></setting>
-        <setting label="32013" id="netmask" subsetting="true" type="ipaddress" visible="eq(-6,false)+eq(-12,Ethernet)"></setting>
-        <setting label="32014" id="gateway" subsetting="true" type="ipaddress" visible="eq(-7,false)+eq(-13,Ethernet)"></setting>
-        <setting label="32015" id="dns1" subsetting="true" type="ipaddress" visible="eq(-8,false)+eq(-14,Ethernet)"></setting>
-        <setting label="32016" id="dns2" subsetting="true" type="ipaddress" visible="eq(-9,false)+eq(-15,Ethernet)"></setting>
+        <setting label="32012" id="ip" subsetting="true" type="ipaddress" visible="eq(-4,false)+eq(-11,Ethernet)"></setting>
+        <setting label="32013" id="netmask" subsetting="true" type="ipaddress" visible="eq(-5,false)+eq(-12,Ethernet)"></setting>
+        <setting label="32014" id="gateway" subsetting="true" type="ipaddress" visible="eq(-6,false)+eq(-13,Ethernet)"></setting>
+        <setting label="32015" id="dns1" subsetting="true" type="ipaddress" visible="eq(-7,false)+eq(-14,Ethernet)"></setting>
+        <setting label="32016" id="dns2" subsetting="true" type="ipaddress" visible="eq(-8,false)+eq(-15,Ethernet)"></setting>
         <setting type="sep" visible="eq(-16,Ethernet)"></setting>
         <setting label="32005" id="connect" type="action" visible="eq(-17,Ethernet)" action="RunScript(script.berserk.network,connecteth)" option="close"></setting>
         <setting type="sep" visible="eq(-18,Ethernet)"></setting>

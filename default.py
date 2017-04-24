@@ -30,6 +30,7 @@ if __name__ == '__main__':
         if not arg:
             sys.exit(0)
 
+        utils.dialogNotFindWlan()
         if arg.startswith('butnetwork'):
             __addon__.openSettings()
 
