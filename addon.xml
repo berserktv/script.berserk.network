@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Основная информация -->
-<addon id="script.berserk.network"
-version="0.2.2"
-name="Network Manager"
-provider-name="berserktv">
+<addon id="script.berserk.network" version="0.2.2" name="Network Manager" provider-name="berserktv">
 <!-- Зависимости -->
 <requires>
   <import addon="xbmc.python" version="2.7"/>
 </requires>
 <!-- Тип (назначение) плагина -->
 <extension point="xbmc.python.script" library="default.py">
-	<provides>executable</provides>
+  <provides>executable</provides>
 </extension>
 <!-- Описание -->
 <extension point="xbmc.addon.metadata"> 
@@ -19,6 +16,6 @@ provider-name="berserktv">
   <description lang="en">Addon for configure NetWork from KODI.</description>
   <description lang="ru">Дополнение для настройки сети в KODI.</description>
   <platform>all</platform> 
-	<license>The MIT License (MIT)</license>
+  <license>The MIT License (MIT)</license>
 </extension>
 </addon>

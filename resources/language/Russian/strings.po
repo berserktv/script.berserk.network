@@ -123,11 +123,11 @@ msgstr ""
 
 msgctxt "#32044"
 msgid "IP address is not sets"
-msgstr ""
+msgstr "IP адрес не указан"
 
 msgctxt "#32045"
 msgid "Interface {} - not ready"
-msgstr ""
+msgstr "Интерфейс {} - не готов"
 
 msgctxt "#32046"
 msgid "Network cable is not pluged"
@@ -143,13 +143,13 @@ msgstr ""
 
 msgctxt "#32049"
 msgid "WLAN network"
-msgstr ""
+msgstr "сеть WLAN"
 
 
 
 msgctxt "#32051"
 msgid "Scanning ..."
-msgstr ""
+msgstr "Сканирование ..."
 
 msgctxt "#32052"
 msgid "Find WLAN network"
@@ -169,7 +169,7 @@ msgstr ""
 
 msgctxt "#32056"
 msgid "Dialog Error"
-msgstr ""
+msgstr "Предупреждение об ошибке"
 
 msgctxt "#32057"
 msgid "SSID or PASSWORD empty"
@@ -220,6 +220,17 @@ msgstr "Не найдена сеть WLAN"
 msgctxt "#32069"
 msgid "Not find Ethernet"
 msgstr "Не найдена сеть Ethernet"
+
+
+
+msgctxt "#32071"
+msgid "Error password"
+msgstr "Ошибка задания пароля"
+
+msgctxt "#32072"
+msgid "Error IP"
+msgstr "Ошибка IP адреса"
+
 
 
 

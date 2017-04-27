@@ -101,22 +101,27 @@ def getEthInterfaces():
             if(name != "lo"): efaces.append(name)
     return efaces
 
+
 def dialogNotFindWlan():
-    #xbmcgui.Dialog().ok( _()"Not find WLAN" , "Make sure the adapter Wi-Fi is plugged" ) #32068 32041
-    xbmcgui.Dialog().ok( _(32068), (_32041) ) #32068 32041
+    # "Not find WLAN" , "Make sure the adapter Wi-Fi is plugged"
+    xbmcgui.Dialog().ok( _(32068), _(32041) )
     __addon__.openSettings()
 
 def dialogNotFindEth():
-    xbmcgui.Dialog().ok( "Not find Ethernet" , "Check ethernet network" ) #32069 32042
+    # "Not find Ethernet" , "Check ethernet network" )
+    xbmcgui.Dialog().ok( _(32069), _(32042) )
 
 def dialogPassError():
-    xbmcgui.Dialog().ok( "Error password" , "Password not set or length less than 8 symbols" ) #32043
+    # "Error password" , "Password not set or length less than 8 symbols"
+    xbmcgui.Dialog().ok( _(32071), _(32043) )
 
 def dialogIpError():
-    xbmcgui.Dialog().ok( "Error ip" , "IP address is not set" ) #32044
+    # "Error IP" , "IP address is not set"
+    xbmcgui.Dialog().ok( _(32072), _(32044) )
 
 def dialogIfaceNotReady(iface):
-    xbmcgui.Dialog().ok( "Dialog Error" , "Interface {} - not ready".format(iface) ) #32045
+    # "Dialog Error" , "Interface {} - not ready".format(iface)
+    xbmcgui.Dialog().ok( _(32056) , _(32045).format(iface) )
 
 
 def checkReadyInterface(iface):
@@ -165,7 +170,15 @@ def dialogSelectSSID(iface):
     cmdScan = [tools_script, iface, "scan"]
     # так как основное окно settings.xml будет закрыто (для корректного обновления полей)
     # вывожу сообщение о состоянии
-    xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Scanning ...") #32049 32051
+    #DEBUG
+    # пару примеров
+    ###xbmc.executebuiltin("Notification(%s,%s,%i,%s)" % (translate(32000), translate(32017),1,os.path.join(addon_path,"icon.png")))
+    ###cmd = 'Notification("{0}", "{1}", 10000, "{2}")'.format(ADDON.getLocalizedString(32300).encode('utf-8'), errorLocation, ADDON.getAddonInfo('icon'))
+    #END DEBUG
+
+    #xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Scanning ...")
+    cmdNote = 'Notification("{0}", "{1}", 10000)'.format( _(32049).encode('utf-8'), _(32051).encode('utf-8') )
+    xbmc.executebuiltin(cmdNote)
     rc,output,error = runCommand(cmdScan)
     if (rc == 0):
         wlanlist = output.splitlines()

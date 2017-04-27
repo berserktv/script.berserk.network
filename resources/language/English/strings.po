@@ -235,6 +235,17 @@ msgstr ""
 
 
 
+msgctxt "#32071"
+msgid "Error password"
+msgstr ""
+
+msgctxt "#32072"
+msgid "Error IP"
+msgstr ""
+
+
+
+
 msgctxt "#32100"
 msgid "An error has occurred in Addon"
 msgstr ""
