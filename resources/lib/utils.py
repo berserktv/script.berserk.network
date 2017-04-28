@@ -162,7 +162,9 @@ def getNameEth(eths):
 
 
 def dialogSelectSSID(iface):
-    if (iface==""): return False
+    if (iface==""):
+        dialogNotFindWlan()
+        return False
 
     cmdUp = ["ifconfig", iface, "up"]
     rc,output,error = runCommand(cmdUp)
@@ -172,13 +174,6 @@ def dialogSelectSSID(iface):
 
     cmdScan = [tools_script, iface, "scan"]
     # так как основное окно settings.xml будет закрыто (для корректного обновления полей)
-
-    #DEBUG
-    # пару примеров
-    ###xbmc.executebuiltin("Notification(%s,%s,%i,%s)" % (translate(32000), translate(32017),1,os.path.join(addon_path,"icon.png")))
-    ###cmd = 'Notification("{0}", "{1}", 10000, "{2}")'.format(ADDON.getLocalizedString(32300).encode('utf-8'), errorLocation, ADDON.getAddonInfo('icon'))
-    #END DEBUG
-
     # вывожу сообщение о состоянии
     # 'Notification("WLAN network", "%s", 10000)' % "Scanning ..."
     cmdNote = 'Notification("{0}", "{1}", 10000)'.format( _(32049).encode('utf-8'), _(32051).encode('utf-8') )
@@ -267,7 +262,7 @@ def dialogUnsetPass():
 def disconnectEths(eths):
     for i in eths:
         if checkPluged(i):
-            mess =  _(32059) + " - " + i + _(32006)
+            mess =  _(32059) + " -   " + i + "  " + _(32006)
             # 'Notification("Ethernet", "%s", 5000)' % "interface - {} OFF".format(i))
             cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32011).encode('utf-8'), mess.encode('utf-8') )
             xbmc.executebuiltin(cmdNote)
@@ -278,7 +273,7 @@ def disconnectEths(eths):
 def disconnectWlans(wlans):
     for i in wlans:
         if checkPluged(i):
-            mess =  _(32059) + " - " + i + _(32006)
+            mess =  _(32059) + " -   " + i + "  " + _(32006)
             # Notification("WLAN", "%s", 5000)' % "interface - {} OFF".format(i)
             cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32021).encode('utf-8'), mess.encode('utf-8') )
             xbmc.executebuiltin(cmdNote)
@@ -352,8 +347,8 @@ def dialogConnectEthernet(iface, wlans):
     # полный вариант переинициализации, с выключением dhclient (если запущен)
     cmdDisconnect = ["/etc/network/eth-manual", iface, "down"]
     cmdConnect = ["/etc/network/eth-manual", iface, "up"]
-    # 'Notification("Ethernet network", "%s", 5000)' % "waiting to connect ..."
-    cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32064).encode('utf-8'), _(32061).encode('utf-8') )
+    # 'Notification("Ethernet network", "%s", 10000)' % "waiting to connect ..."
+    cmdNote = 'Notification("{0}", "{1}", 10000)'.format( _(32064).encode('utf-8'), _(32061).encode('utf-8') )
     xbmc.executebuiltin(cmdNote)
     runCommand(cmdDisconnect)
     rc,output,error = runCommand(cmdConnect)
