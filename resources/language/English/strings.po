@@ -37,7 +37,7 @@ msgid "Connect"
 msgstr ""
 
 msgctxt "#32006"
-msgid ""
+msgid "OFF"
 msgstr ""
 
 msgctxt "#32007"
@@ -138,7 +138,7 @@ msgid "IP address is not sets"
 msgstr ""
 
 msgctxt "#32045"
-msgid "Interface {} - not ready"
+msgid "interface not ready"
 msgstr ""
 
 msgctxt "#32046"
@@ -164,11 +164,11 @@ msgid "Scanning ..."
 msgstr ""
 
 msgctxt "#32052"
-msgid "Find WLAN network"
+msgid "Finds WLAN network"
 msgstr ""
 
 msgctxt "#32053"
-msgid "Generate and save password {}"
+msgid "Generate and save password"
 msgstr ""
 
 msgctxt "#32054"
@@ -188,11 +188,11 @@ msgid "SSID or PASSWORD empty"
 msgstr ""
 
 msgctxt "#32058"
-msgid "Dialog Unset Password"
-msgstr "You are sure that you want to clear the saved password for \n\n              WLAN - {}"
+msgid "You are sure that you want to clear the saved password for"
+msgstr ""
 
 msgctxt "#32059"
-msgid "interface - {} OFF"
+msgid "interface"
 msgstr ""
 
 
@@ -243,6 +243,21 @@ msgctxt "#32072"
 msgid "Error IP"
 msgstr ""
 
+msgctxt "#32073"
+msgid "saved"
+msgstr ""
+
+msgctxt "#32074"
+msgid "Dialog Unset Password"
+msgstr ""
+
+msgctxt "#32075"
+msgid "start"
+msgstr ""
+
+msgctxt "#32076"
+msgid "stop"
+msgstr ""
 
 
 

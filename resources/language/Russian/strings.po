@@ -36,6 +36,10 @@ msgctxt "#32005"
 msgid "Connect"
 msgstr "Подключиться"
 
+msgctxt "#32006"
+msgid "OFF"
+msgstr "выключен"
+
 
 
 msgctxt "#32011"
@@ -115,31 +119,31 @@ msgstr "Убедитель что Wi-Fi адаптер подключен"
 
 msgctxt "#32042"
 msgid "Check ethernet network"
-msgstr ""
+msgstr "Проверьте наличие сетевого устройства ethernet"
 
 msgctxt "#32043"
 msgid "Password not set or length less than 8 symbols"
-msgstr ""
+msgstr "Пароль не установлен или его длина менее 8 символов"
 
 msgctxt "#32044"
 msgid "IP address is not sets"
 msgstr "IP адрес не указан"
 
 msgctxt "#32045"
-msgid "Interface {} - not ready"
-msgstr "Интерфейс {} - не готов"
+msgid "interface not ready"
+msgstr "интерфейс не готов"
 
 msgctxt "#32046"
 msgid "Network cable is not pluged"
-msgstr ""
+msgstr "Сетевой кабель не подключен"
 
 msgctxt "#32047"
 msgid "Select WLAN interface"
-msgstr ""
+msgstr "Выберите WLAN интерфейс"
 
 msgctxt "#32048"
 msgid "Select Ethernet interface"
-msgstr ""
+msgstr "Выберите Ethernet интерфейс"
 
 msgctxt "#32049"
 msgid "WLAN network"
@@ -152,12 +156,12 @@ msgid "Scanning ..."
 msgstr "Сканирование ..."
 
 msgctxt "#32052"
-msgid "Find WLAN network"
-msgstr ""
+msgid "Finds WLAN network"
+msgstr "Найдены WLAN сети"
 
 msgctxt "#32053"
-msgid "Generate and save password {}"
-msgstr ""
+msgid "Generate and save password"
+msgstr "Пароль сгенерирован и сохранен"
 
 msgctxt "#32054"
 msgid "Password Generate"
@@ -165,7 +169,7 @@ msgstr ""
 
 msgctxt "#32055"
 msgid "Input Password (min length 8 simbols)"
-msgstr ""
+msgstr "Ввод пароля (минимальная длина 8 символов)"
 
 msgctxt "#32056"
 msgid "Dialog Error"
@@ -173,45 +177,45 @@ msgstr "Предупреждение об ошибке"
 
 msgctxt "#32057"
 msgid "SSID or PASSWORD empty"
-msgstr ""
+msgstr "не задан SSID или пустой пароль"
 
 msgctxt "#32058"
-msgid "Dialog Unset Password"
-msgstr "You are sure that you want to clear the saved password for \n\n              WLAN - {}"
+msgid "You are sure that you want to clear the saved password for"
+msgstr "Вы уверены, что хотите очистить сохраненный пароль"
 
 msgctxt "#32059"
-msgid "interface - {} OFF"
-msgstr ""
+msgid "interface"
+msgstr "интерфейс"
 
 
 
 msgctxt "#32061"
 msgid "waiting to connect ..."
-msgstr ""
+msgstr "ожидание подлючения ..."
 
 msgctxt "#32062"
 msgid "Connected"
-msgstr ""
+msgstr "Подключено"
 
 msgctxt "#32063"
 msgid "Could not connect. Probably not correctly set the password"
-msgstr ""
+msgstr "Не смогли подключиться, возможно неправильно задан пароль"
 
 msgctxt "#32064"
 msgid "Ethernet network"
-msgstr ""
+msgstr "Сеть ethernet"
 
 msgctxt "#32065"
 msgid "Could not connect ..."
-msgstr ""
+msgstr "Ошибка подключения ..."
 
 msgctxt "#32066"
 msgid "Ssh service"
-msgstr ""
+msgstr "Ssh сервис"
 
 msgctxt "#32067"
 msgid "Failed"
-msgstr ""
+msgstr "Ошибка"
 
 msgctxt "#32068"
 msgid "Not find WLAN"
@@ -231,6 +235,21 @@ msgctxt "#32072"
 msgid "Error IP"
 msgstr "Ошибка IP адреса"
 
+msgctxt "#32073"
+msgid "saved"
+msgstr "Сохранен"
+
+msgctxt "#32074"
+msgid "Dialog Unset Password"
+msgstr "Окно Сброса Пароля"
+
+msgctxt "#32075"
+msgid "start"
+msgstr "запущен"
+
+msgctxt "#32076"
+msgid "stop"
+msgstr "остановлен"
 
 
 

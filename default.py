@@ -30,30 +30,6 @@ if __name__ == '__main__':
         if not arg:
             sys.exit(0)
 
-       # DEBUG
-       # "Not find WLAN" , "Make sure the adapter Wi-Fi is plugged"
-       utils.dialogNotFindWlan()
-
-       # "Not find Ethernet" , "Check ethernet network" )
-       utils.dialogNotFindEth()
-
-       # "Error password" , "Password not set or length less than 8 symbols"
-       utils.dialogPassError()
-
-       # "Error IP" , "IP address is not set"
-       utils.dialogIpError()
-
-       # "Dialog Error" , "Interface {} - not ready".format(iface)
-       utils.dialogIfaceNotReady("eth0")
-
-
-
-
-
-
-
-
-
         if arg.startswith('butnetwork'):
             __addon__.openSettings()
 

@@ -120,8 +120,8 @@ def dialogIpError():
     xbmcgui.Dialog().ok( _(32072), _(32044) )
 
 def dialogIfaceNotReady(iface):
-    # "Dialog Error" , "Interface {} - not ready".format(iface)
-    xbmcgui.Dialog().ok( _(32056) , _(32045).format(iface) )
+    # "Dialog Error" , "iface - interface not ready"
+    xbmcgui.Dialog().ok( _(32056), "{} - {}".format(iface, _(32045).encode('utf-8')) )
 
 
 def checkReadyInterface(iface):
@@ -131,7 +131,8 @@ def checkReadyInterface(iface):
         dialogIfaceNotReady(iface)
         return False
     if not checkPluged(iface):
-        xbmcgui.Dialog().ok( "Dialog Error" , "Network cable is not pluged") #32046
+        # "Dialog Error" , "Network cable is not pluged"
+        xbmcgui.Dialog().ok( _(32056), _(32046) )
         return False
     return True
 
@@ -139,7 +140,8 @@ def getNameWlan(wlans):
     iface = ""
     l = len(wlans)
     if (l > 1):
-        ret = xbmcgui.Dialog().select("Select WLAN interface", wlans) #32047
+        # "Select WLAN interface"
+        ret = xbmcgui.Dialog().select( _(32047), wlans )
         if (ret != -1): iface = wlans[ret]
         else: dialogNotFindWlan()
     else:
@@ -150,7 +152,8 @@ def getNameEth(eths):
     iface = ""
     l = len(eths)
     if (l > 1):
-        ret = xbmcgui.Dialog().select("Select Ethernet interface", eths) #32048
+        # "Select Ethernet interface"
+        ret = xbmcgui.Dialog().select( _(32048), eths)
         if (ret != -1): iface = eths[ret]
         else: dialogNotFindEth()
     else:
@@ -169,20 +172,22 @@ def dialogSelectSSID(iface):
 
     cmdScan = [tools_script, iface, "scan"]
     # так как основное окно settings.xml будет закрыто (для корректного обновления полей)
-    # вывожу сообщение о состоянии
+
     #DEBUG
     # пару примеров
     ###xbmc.executebuiltin("Notification(%s,%s,%i,%s)" % (translate(32000), translate(32017),1,os.path.join(addon_path,"icon.png")))
     ###cmd = 'Notification("{0}", "{1}", 10000, "{2}")'.format(ADDON.getLocalizedString(32300).encode('utf-8'), errorLocation, ADDON.getAddonInfo('icon'))
     #END DEBUG
 
-    #xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Scanning ...")
+    # вывожу сообщение о состоянии
+    # 'Notification("WLAN network", "%s", 10000)' % "Scanning ..."
     cmdNote = 'Notification("{0}", "{1}", 10000)'.format( _(32049).encode('utf-8'), _(32051).encode('utf-8') )
     xbmc.executebuiltin(cmdNote)
     rc,output,error = runCommand(cmdScan)
     if (rc == 0):
         wlanlist = output.splitlines()
-        ret = xbmcgui.Dialog().select("Find WLAN network", wlanlist) #32052
+        # "Finds WLAN network"
+        ret = xbmcgui.Dialog().select( _(32052), wlanlist )
         ssid = "None"
         security = "None"
         if (ret != -1):
@@ -210,10 +215,15 @@ def dialogGenSSID(str1):
     else:
         # command iface gen ssid pass /path/file
         cmdGen = [tools_script, iface, "gen", ssid, str1, kodi_wlans_dir+ssid]
-        xbmc.executebuiltin('Notification("WLAN network", "%s", 10000)' % "Generate and save password {}".format(cmdGen[5]) ) #32049 32053
+        mess = _(32053) + " " + cmdGen[5]
+        # 'Notification("WLAN network", "%s", 10000)' % "Generate and save password"+cmdGen[5] )
+        cmdNote = 'Notification("{0}", "{1}", 10000)'.format( _(32049).encode('utf-8'), mess.encode('utf-8') )
+        xbmc.executebuiltin(cmdNote)
         rc,output,error = runCommand(cmdGen)
         if (rc == 0):
-            xbmcgui.Dialog().ok( "Password Generate" , "saved:   {}".format(cmdGen[5])) #32054
+            mess = _(32073) + ":    " + cmdGen[5]
+            # "Password Generate" , "saved:
+            xbmcgui.Dialog().ok( _(32054), mess )
             return True
         else:
             dialogPassError()
@@ -223,7 +233,8 @@ def dialogGenSSID(str1):
 
 
 def dialogInputPass():
-    str1 = xbmcgui.Dialog().input("Input Password (min length 8 simbols)") #32055
+    # "Input Password (min length 8 simbols)"
+    str1 = xbmcgui.Dialog().input( _(32055) )
     if( len(str1) >= 8 ):
         if (dialogGenSSID(str1)):
             # реальный пароль не сохраняю, только хеш (:-)прям безопасная я вся такая - "Вайфая")
@@ -236,12 +247,13 @@ def dialogUnsetPass():
     ssid = __addon__.getSetting("ssid")
     str1 = __addon__.getSetting("pass")
     if( ssid == "" or str1 == "" ):
-        xbmcgui.Dialog().ok("Dialog Error", "SSID or PASSWORD empty") #32056 32057
+        # "Dialog Error", "SSID or PASSWORD empty"
+        xbmcgui.Dialog().ok( _(32056), _(32057) )
         return False
 
-    #вы уверены что хотите очистить сохраненный пароль.
-    #32058
-    answer = xbmcgui.Dialog().yesno("Dialog Unset Password", "You are sure that you want to clear the saved password for \n\n              WLAN - {}".format(ssid))
+    mess = _(32058) + " " + _(32021) + "  -          " + ssid
+    # "Dialog Unset Password", "You are sure that you want to clear the saved password for WLAN -     {}".format(ssid))
+    answer = xbmcgui.Dialog().yesno( _(32074), mess )
     if (answer == 1):
         f = kodi_wlans_dir+ssid
         if (os.path.isfile(f)):
@@ -255,7 +267,10 @@ def dialogUnsetPass():
 def disconnectEths(eths):
     for i in eths:
         if checkPluged(i):
-            xbmc.executebuiltin('Notification("Ethernet", "%s", 5000)' % "interface - {} OFF".format(i)) #32011 32059
+            mess =  _(32059) + " - " + i + _(32006)
+            # 'Notification("Ethernet", "%s", 5000)' % "interface - {} OFF".format(i))
+            cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32011).encode('utf-8'), mess.encode('utf-8') )
+            xbmc.executebuiltin(cmdNote)
         # выключаю в любом случае, мало ли кабель отвалился
         cmdDisconnect = ["/etc/network/eth-manual", i, "down"]
         runCommand(cmdDisconnect)
@@ -263,7 +278,10 @@ def disconnectEths(eths):
 def disconnectWlans(wlans):
     for i in wlans:
         if checkPluged(i):
-            xbmc.executebuiltin('Notification("WLAN", "%s", 5000)' % "interface - {} OFF".format(i)) #32021 32059
+            mess =  _(32059) + " - " + i + _(32006)
+            # Notification("WLAN", "%s", 5000)' % "interface - {} OFF".format(i)
+            cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32021).encode('utf-8'), mess.encode('utf-8') )
+            xbmc.executebuiltin(cmdNote)
         cmdDisconnect = ["/etc/network/wlan", i, "down"]
         runCommand(cmdDisconnect)
 
@@ -282,15 +300,19 @@ def dialogConnectSSID(iface, eths):
     cmdConnect = ["/etc/network/wlan", iface, "up"]
     # полный вариант переинициализации с выключением dhclient (если запущен)
     runCommand(cmdDisconnect)
-    xbmc.executebuiltin('Notification("WLAN network", "%s", 14000)' % "waiting to connect ...") #32049  32061
+    # 'Notification("WLAN network", "%s", 14000)' % "waiting to connect ..."
+    cmdNote = 'Notification("{0}", "{1}", 14000)'.format( _(32049).encode('utf-8'), _(32061).encode('utf-8') )
+    xbmc.executebuiltin(cmdNote)
     rc,output,error = runCommand(cmdConnect)
     if (rc == 0):
         ethernetOFF()
-        xbmc.executebuiltin('Notification("WLAN network", "%s", 5000)' % "Connected") #32049 32062
+        # 'Notification("WLAN network", "%s", 5000)' % "Connected"
+        cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32049).encode('utf-8'), _(32062).encode('utf-8') )
+        xbmc.executebuiltin(cmdNote)
         return True
     else:
-        # не смогли подключиться, возможно неправильно задан пароль ...
-        xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect. Probably not correctly set the password") #32056 32063
+        # "Dialog Error" , "Could not connect. Probably not correctly set the password")
+        xbmcgui.Dialog().ok( _(32056), _(32063) )
         __addon__.openSettings()
         return False
 
@@ -330,16 +352,20 @@ def dialogConnectEthernet(iface, wlans):
     # полный вариант переинициализации, с выключением dhclient (если запущен)
     cmdDisconnect = ["/etc/network/eth-manual", iface, "down"]
     cmdConnect = ["/etc/network/eth-manual", iface, "up"]
-    xbmc.executebuiltin('Notification("Ethernet network", "%s", 5000)' % "waiting to connect ...") #32064 32061
+    # 'Notification("Ethernet network", "%s", 5000)' % "waiting to connect ..."
+    cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32064).encode('utf-8'), _(32061).encode('utf-8') )
+    xbmc.executebuiltin(cmdNote)
     runCommand(cmdDisconnect)
     rc,output,error = runCommand(cmdConnect)
     if (rc == 0):
         wlanOFF()
-        xbmc.executebuiltin('Notification("Ethernet network", "%s", 5000)' % "Connected") #32064 32062
+        # 'Notification("Ethernet network", "%s", 5000)' % "Connected"
+        cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32064).encode('utf-8'), _(32062).encode('utf-8') )
+        xbmc.executebuiltin(cmdNote)
         return True
     else:
-        # не смогли подключиться
-        xbmcgui.Dialog().ok( "Dialog Error" , "Could not connect ...") #32056 32065
+        # "Dialog Error" , "Could not connect ..."
+        xbmcgui.Dialog().ok( _(32056), _(32065) )
         __addon__.openSettings()
         return False
 
@@ -358,15 +384,21 @@ def applySshConfig():
 
     if (start):
         cmdSsh.append("start")
-        mess = "start"
+        mess = _(32075)
     else:
         cmdSsh.append("stop")
-        mess = "stop"
+        mess = _(32076)
 
-    xbmc.executebuiltin('Notification("Ssh service", "%s", 5000)' % mess)
+    # 'Notification("Ssh service", "%s", 5000)' % mess
+    cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32066).encode('utf-8'), mess.encode('utf-8') )
+    xbmc.executebuiltin(cmdNote)
     rc,output,error = runCommand(cmdSsh)
-    if (rc == 0): res = True
-    else: xbmc.executebuiltin('Notification("Ssh service", "%s", 5000)' % "Failed") #32066 32067
+    if (rc == 0):
+        res = True
+    else:
+        # 'Notification("Ssh service", "%s", 5000)' % "Failed")
+        cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32066).encode('utf-8'), _(32067).encode('utf-8') )
+        xbmc.executebuiltin(cmdNote)
 
     if (is_dropbear): configDropbear(start)
     return res
