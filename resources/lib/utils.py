@@ -378,6 +378,7 @@ def applySshConfig():
     elif (is_ssh): cmdSsh.append("/etc/init.d/ssh")
 
     if (start):
+        if (is_dropbear): configDropbear(start)
         cmdSsh.append("start")
         mess = _(32075)
     else:
@@ -395,7 +396,7 @@ def applySshConfig():
         cmdNote = 'Notification("{0}", "{1}", 5000)'.format( _(32066).encode('utf-8'), _(32067).encode('utf-8') )
         xbmc.executebuiltin(cmdNote)
 
-    if (is_dropbear): configDropbear(start)
+    if (not start and is_dropbear): configDropbear(start)
     return res
 
 
