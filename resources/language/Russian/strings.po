@@ -105,7 +105,7 @@ msgstr "забыть"
 
 msgctxt "#32031"
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 msgctxt "#32032"
 msgid "switch ON"
@@ -165,7 +165,7 @@ msgstr "Пароль сгенерирован и сохранен"
 
 msgctxt "#32054"
 msgid "Password Generate"
-msgstr ""
+msgstr "Генерация пароля"
 
 msgctxt "#32055"
 msgid "Input Password (min length 8 simbols)"

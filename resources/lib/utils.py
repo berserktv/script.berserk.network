@@ -175,8 +175,8 @@ def dialogSelectSSID(iface):
     cmdScan = [tools_script, iface, "scan"]
     # так как основное окно settings.xml будет закрыто (для корректного обновления полей)
     # вывожу сообщение о состоянии
-    # 'Notification("WLAN network", "%s", 10000)' % "Scanning ..."
-    cmdNote = 'Notification("{0}", "{1}", 10000)'.format( _(32049).encode('utf-8'), _(32051).encode('utf-8') )
+    # 'Notification("WLAN network", "%s", 8000)' % "Scanning ..."
+    cmdNote = 'Notification("{0}", "{1}", 8000)'.format( _(32049).encode('utf-8'), _(32051).encode('utf-8') )
     xbmc.executebuiltin(cmdNote)
     rc,output,error = runCommand(cmdScan)
     if (rc == 0):

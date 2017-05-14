@@ -20,10 +20,8 @@ sys.path.append(xbmc.translatePath(os.path.join(__path__, 'resources', 'lib')))
 import utils
 
 if __name__ == '__main__':
-    #try:
+    try:
         arg = None
-        ###utils.checkFirstRun() => перенести в service.py
-
         if len(sys.argv) > 1:
             arg = sys.argv[1] or False
         extra = sys.argv[2:]
@@ -59,7 +57,7 @@ if __name__ == '__main__':
             iface = utils.getNameEth(eths)
             utils.dialogConnectEthernet(iface, wlans)
 
-    #except Exception, e:
-    #    xbmc.executebuiltin('Notification("Berserk", "%s", 5000)' % "Exception ...")
+    except Exception, e:
+        xbmc.executebuiltin('Notification("Berserk", "%s", 5000)' % "Exception ...")
 
 

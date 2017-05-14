@@ -6,6 +6,7 @@
   <import addon="xbmc.python" version="2.7"/>
 </requires>
 <!-- Тип (назначение) плагина -->
+<extension point="xbmc.service" library="service.py" start="startup"> </extension>
 <extension point="xbmc.python.script" library="default.py">
   <provides>executable</provides>
 </extension>
