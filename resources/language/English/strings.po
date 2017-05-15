@@ -261,6 +261,32 @@ msgstr ""
 
 
 
+msgctxt "#32081"
+msgid "Welcome to Kodi"
+msgstr ""
+
+msgctxt "#32082"
+msgid "You can change a network connection by modifying its settings "
+msgstr ""
+
+msgctxt "#32083"
+msgid "running the program plugin script.berserk.network "
+msgstr ""
+
+msgctxt "#32084"
+msgid "or items to the menu"
+msgstr ""
+
+msgctxt "#32085"
+msgid "SYSTEM => Network"
+msgstr ""
+
+msgctxt "#32086"
+msgid "The first running of Kodi"
+msgstr ""
+
+
+
 msgctxt "#32100"
 msgid "An error has occurred in Addon"
 msgstr ""

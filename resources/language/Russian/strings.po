@@ -252,6 +252,31 @@ msgid "stop"
 msgstr "остановлен"
 
 
+msgctxt "#32081"
+msgid "Welcome to Kodi"
+msgstr "Добро пожаловать в Kodi"
+
+msgctxt "#32082"
+msgid "You can change a network connection by modifying its settings "
+msgstr "Во время первого запуска вы можете настроить сетевое подключение "
+
+msgctxt "#32083"
+msgid "running the program plugin script.berserk.network "
+msgstr "через запуск программного плагина script.berserk.network "
+
+msgctxt "#32084"
+msgid "or items to the menu"
+msgstr "или же вы можете сделать это позже через пункт меню"
+
+msgctxt "#32085"
+msgid "SYSTEM => Network"
+msgstr "СИСТЕМА => Сеть"
+
+msgctxt "#32086"
+msgid "The first running of Kodi"
+msgstr "Первый запуск Kodi"
+
+
 
 msgctxt "#32100"
 msgid "An error has occurred in Addon"

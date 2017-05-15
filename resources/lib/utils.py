@@ -45,7 +45,9 @@ def ethernetOFF():
 
 def checkFirstRun():
     if (os.path.isfile(first_run)):
-        xbmcgui.Dialog().ok( "Greetings" , "Welcome !!!" )
+        # "The first running of Kodi", greeting
+        greeting = _(32081) + "\n" + _(32082) + _(32083) + _(32084) + "\n" + _(32085)
+        xbmcgui.Dialog().ok( _(32086), greeting )
         __addon__.openSettings()
         os.remove(first_run)
 
