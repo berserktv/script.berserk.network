@@ -119,6 +119,14 @@ msgctxt "#32032"
 msgid "switch ON"
 msgstr ""
 
+msgctxt "#32033"
+msgid "IPTV"
+msgstr ""
+
+msgctxt "#32034"
+msgid "Settings"
+msgstr ""
+
 
 
 msgctxt "#32041"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings height="800">
     <category label="32001">
-        <setting label="32003" id="iface" type="select" lvalues="32011|32021|32031" default="Ethernet"></setting>
+        <setting label="32003" id="iface" type="select" lvalues="32011|32021|32031|32033" default="Ethernet"></setting>
         <setting type="sep"></setting>
         <setting label="32022" id="ssid" subsetting="true" type="action" visible="eq(-2,WLAN)" action="RunScript(script.berserk.network,scan)" default="None" option="close"></setting>
         <setting label="32023" id="security" subsetting="true" type="select" visible="!eq(-1,None)+eq(-3,WLAN)" lvalues=""></setting>
@@ -24,5 +24,8 @@
         <setting label="32032" id="sshon" subsetting="true" type="bool" visible="eq(-20,SSH)" default="false"></setting>
         <setting label="32004" id="sshapply" type="action" visible="eq(-21,SSH)" action="RunScript(script.berserk.network,sshapply)" option="close"></setting>
         <setting type="sep" visible="eq(-22,SSH)"></setting>
+        <setting type="sep" visible="eq(-23,IPTV)"></setting>
+        <setting label="32034" id="iptvsettings" type="action" visible="eq(-24,IPTV)" action="Addon.OpenSettings(pvr.iptvsimple)" option="close"></setting>
+        <setting type="sep" visible="eq(-25,IPTV)"></setting>
     </category>
 </settings>
