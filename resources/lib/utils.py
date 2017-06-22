@@ -191,6 +191,13 @@ def dialogSelectSSID(iface):
             strinf = wlanlist[ret].split()
             ssid = strinf[0]
             security = strinf[3]
+            # название идет до служебного слова Quality (может быть с пробелами)
+            if (strinf[2] == "Quality"):
+                ssid = strinf[0]+" "+strinf[1]
+                security = strinf[4]
+            elif (strinf[3] == "Quality"):
+                ssid = strinf[0]+" "+strinf[1]+" "+strinf[2]
+                security = strinf[5]
 
         conf = kodi_wlans_dir+ssid
         __addon__.setSetting("ssid", ssid)
