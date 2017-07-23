@@ -35,6 +35,26 @@ def wlanON():
 def wlanOFF():
     open(kodi_wlans_dir+"off", 'a').close()
 
+# используется когда WiFi адаптеров несколько
+def wlanAdapterON(iface):
+    f = kodi_wlans_dir+iface+"_off"
+    if (os.path.isfile(f)):
+        os.remove(f)
+
+def wlanAdapterOFF(iface):
+    open(kodi_wlans_dir+iface+"_off", 'a').close()
+
+# один адаптер включается (iface), остальные выключаются если их несколько
+def wlanSwitchAdapter(iface, wlans):
+    wlanAdapterON(iface)
+    l = len(wlans)
+    if (l > 1):
+        disconnectWlans(wlans)
+        for w in wlans:
+            if (w != iface):
+                wlanAdapterOFF(w)
+
+
 def ethernetON():
     f = kodi_eths_dir+"off"
     if (os.path.isfile(f)):
@@ -290,7 +310,7 @@ def disconnectWlans(wlans):
         runCommand(cmdDisconnect)
 
 
-def dialogConnectSSID(iface, eths):
+def dialogConnectSSID(iface, eths, wlans):
     if (iface==""): return False
     ssid = __addon__.getSetting("ssid")
     str1 = __addon__.getSetting("pass")
@@ -298,7 +318,10 @@ def dialogConnectSSID(iface, eths):
         dialogPassError()
         return False
 
+    # общее включение
     wlanON()
+    # включение конкретного адаптера, если выключен
+    wlanSwitchAdapter(iface, wlans)
     disconnectEths(eths)
     cmdDisconnect = ["/etc/network/wlan", iface, "down"]
     cmdConnect = ["/etc/network/wlan", iface, "up"]

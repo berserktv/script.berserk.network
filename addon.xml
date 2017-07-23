@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Основная информация -->
-<addon id="script.berserk.network" version="0.2.3" name="Network Manager" provider-name="berserktv">
+<addon id="script.berserk.network" version="0.2.4" name="Network Manager" provider-name="berserktv">
 <!-- Зависимости -->
 <requires>
   <import addon="xbmc.python" version="2.7"/>

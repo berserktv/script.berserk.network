@@ -42,7 +42,7 @@ if __name__ == '__main__':
             wlans = utils.getWlanInterfaces()
             eths  = utils.getEthInterfaces()
             iface = utils.getNameWlan(wlans)
-            utils.dialogConnectSSID(iface, eths)
+            utils.dialogConnectSSID(iface, eths, wlans)
 
         elif arg.startswith('connecteth'):
             eths  = utils.getEthInterfaces()

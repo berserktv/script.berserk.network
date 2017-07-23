@@ -1,3 +1,8 @@
+v0.2.4 - 05/07/2017
+- Added spaces in the names SSID of WiFi
+- Added turning off a WiFi adapters
+  (if more than one, example RPI3(external and internal) )
+
 v0.2.3 - 09/05/2017
 - Added settings IPTV
 
