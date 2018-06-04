@@ -273,12 +273,12 @@ msgid "running the program plugin script.berserk.network "
 msgstr "через запуск программного плагина script.berserk.network "
 
 msgctxt "#32084"
-msgid "or items to the menu"
-msgstr "или же вы можете сделать это позже через пункт меню"
+msgid "or you can do it later through the item Setting the main menu, "
+msgstr "или же вы можете сделать это позже через пункт Настройка основного меню, "
 
 msgctxt "#32085"
-msgid "SYSTEM => Network"
-msgstr "СИСТЕМА => Сеть"
+msgid "clicking on the Gear icon, and selecting the Network item (the little man icon)"
+msgstr "нажав на значек Шестеренка, и выбрав пункт Сеть (значек человечек)"
 
 msgctxt "#32086"
 msgid "The first running of Kodi"

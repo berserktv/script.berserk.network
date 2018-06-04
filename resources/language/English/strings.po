@@ -282,11 +282,11 @@ msgid "running the program plugin script.berserk.network "
 msgstr ""
 
 msgctxt "#32084"
-msgid "or items to the menu"
+msgid "or you can do it later through the item Setting the main menu, "
 msgstr ""
 
 msgctxt "#32085"
-msgid "SYSTEM => Network"
+msgid "clicking on the Gear icon, and selecting the Network item (the little man icon)"
 msgstr ""
 
 msgctxt "#32086"
