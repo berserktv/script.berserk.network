@@ -50,6 +50,9 @@ if __name__ == '__main__':
             iface = utils.getNameEth(eths)
             utils.dialogConnectEthernet(iface, wlans)
 
+        elif arg.startswith('iptvsimple'):
+            xbmcaddon.Addon(id='pvr.iptvsimple').openSettings()
+
     except Exception, e:
         xbmc.executebuiltin('Notification("Berserk", "%s", 5000)' % "Exception ...")
 

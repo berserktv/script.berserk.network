@@ -25,7 +25,7 @@
         <setting label="32004" id="sshapply" type="action" visible="eq(-21,SSH)" action="RunScript(script.berserk.network,sshapply)" option="close"></setting>
         <setting type="sep" visible="eq(-22,SSH)"></setting>
         <setting type="sep" visible="eq(-23,IPTV)"></setting>
-        <setting label="32034" id="iptvsettings" type="action" visible="eq(-24,IPTV)" action="Addon.OpenSettings(pvr.iptvsimple)" option="close"></setting>
+        <setting label="32034" id="iptvsettings" type="action" visible="eq(-24,IPTV)" action="RunScript(script.berserk.network,iptvsimple)" option="close"></setting>
         <setting type="sep" visible="eq(-25,IPTV)"></setting>
     </category>
 </settings>

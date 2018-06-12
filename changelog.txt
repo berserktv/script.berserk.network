@@ -1,3 +1,7 @@
+v0.2.5 - 12/06/2018
+- Added start pvr.iptvsimple window settings 
+- Changed Welcome for version Kodi 17.6
+
 v0.2.4 - 05/07/2017
 - Added spaces in the names SSID of WiFi
 - Added turning off a WiFi adapters
