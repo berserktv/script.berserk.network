@@ -273,12 +273,12 @@ msgid "running the program plugin script.berserk.network "
 msgstr "через запуск программного плагина script.berserk.network "
 
 msgctxt "#32084"
-msgid "or you can do this later by clicking on \"Gear\", "
-msgstr "или же вы можете сделать это позже нажав на \"Шестеренку\", "
+msgid "or you can do it later "
+msgstr "или же вы можете сделать это позже "
 
 msgctxt "#32085"
-msgid "in the upper left corner and then selecting the menu item \"Network\" (warrior icon)"
-msgstr "в левом верхнем углу и далее выбрав пункт меню \"Сеть\" (иконка воина)"
+msgid "clicking on the \"Gear\" in the upper left corner of the screen and then selecting the menu item \"Network\" (warrior icon)"
+msgstr "нажав на \"Шестеренку\" в левом верхнем углу экрана и далее выбрав пункт меню \"Сеть\" (иконка воина)"
 
 msgctxt "#32086"
 msgid "The first running of Kodi"
